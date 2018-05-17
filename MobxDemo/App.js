@@ -4,55 +4,146 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {
+	Component
+} from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
+	Platform,
+	StyleSheet,
+	Text,
+	View
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+import {
+	HomePage,
+	CategoryPage,
+	CartPage,
+	MinePage,
+} from 'mb-react-native-page';
+
+import {
+	TabBarIcon,
+} from 'mb-react-native-component';
+
+import {
+	THEME_COLOR,
+} from 'mb-react-native-common';
+
+import {
+	StackNavigator,
+	TabNavigator,
+	TabBarBottom,
+} from 'react-navigation';
+
+import {
+	Provider
+} from 'mobx-react';
+
+import {
+	Store,
+} from 'mb-react-native-mobx';
+
+const Tab = TabNavigator({
+	Home: {
+		screen: HomePage,
+		navigationOptions: ({navigation}) => ({  
+			tabBarLabel: '首页', 
+			tabBarIcon:({selected,tintColor}) => (  
+				<TabBarIcon  
+					tintColor={tintColor}  
+					selected={selected}  
+					normalImage={require('./app/image/home.png')}  
+					selectedImage={require('./app/image/homeSelect.png')}  
+				/>  
+			)  
+		  }),
+	},
+	Category: {
+		screen: CategoryPage,
+		navigationOptions: ({navigation}) => ({  
+			tabBarLabel: '分类',  
+			tabBarIcon:({selected,tintColor}) => (  
+				<TabBarIcon  
+					tintColor={tintColor}  
+					selected={selected}  
+					normalImage={require('./app/image/category.png')}  
+					selectedImage={require('./app/image/categorySelect.png')}  
+				/>  
+			)  
+		  }),
+	},
+	Cart: {
+		screen: CategoryPage,
+		navigationOptions: ({navigation}) => ({  
+			tabBarLabel: '购物车',  
+			tabBarIcon:({selected,tintColor}) => (  
+				<TabBarIcon  
+					tintColor={tintColor}  
+					selected={selected}  
+					normalImage={require('./app/image/cart.png')}  
+					selectedImage={require('./app/image/cartSelect.png')}  
+				/>  
+			)  
+		  }),
+	},
+	Mine: {
+		screen: CategoryPage,
+		navigationOptions: ({navigation}) => ({  
+			tabBarLabel: '我的',  
+			tabBarIcon:({selected,tintColor}) => (  
+				<TabBarIcon  
+					tintColor={tintColor}  
+					selected={selected}  
+					normalImage={require('./app/image/mine.png')}  
+					selectedImage={require('./app/image/mineSelect.png')}  
+				/>  
+			)  
+		}),
+	}
+}, {
+	tabBarComponent: TabBarBottom,
+	tabBarPosition: 'bottom',
+	swipeEnabled: false,
+	animationEnabled: false,
+	lazy: true,
+	tabBarOptions: {
+		activeTintColor: THEME_COLOR,
+		inactiveTintColor: '#999',
+		style: {
+			backgroundColor: '#e0e0e0',
+		},
+		labelStyle: {
+			fontSize: 12,
+		}
+	}
 });
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
-  }
+const Navigator = StackNavigator({
+	Tab: {
+		screen: Tab
+	},
+}, {
+	navigationOptions: {
+		headerBackTitle: null,
+		headerTintColor: '#333',
+		showIcon: true,
+		swipeEnabled: true,
+		animationEnabled: true,
+		headerTitleStyle: {
+			alignSelf: 'center',
+            fontSize: 15,
+            color: '#333',
+		}
+	},
+	mode: 'card',
+});
+
+export default class App extends React.Component {
+	render() {
+		return (
+			<Provider rootStore={Store}>
+				 <Navigator />
+			</Provider>
+		);
+	}
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
