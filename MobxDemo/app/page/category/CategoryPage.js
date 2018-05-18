@@ -6,6 +6,9 @@ import {
 } from 'react-native';
 
 export default class CategoryPage extends React.Component {
+    static navigationOptions = {
+        headerTitle: '分类',
+    }
     render() {
         return (
             <View style={styles.container}></View>

@@ -19,6 +19,7 @@ import {
 	CategoryPage,
 	CartPage,
 	MinePage,
+	GoodsDetailPage,
 } from 'mb-react-native-page';
 
 import {
@@ -30,20 +31,27 @@ import {
 } from 'mb-react-native-common';
 
 import {
-	StackNavigator,
-	TabNavigator,
-	TabBarBottom,
+	createStackNavigator,
+	createBottomTabNavigator,
+	addNavigationHelpers,
 } from 'react-navigation';
 
 import {
-	Provider
+	Provider,
+	observer,
 } from 'mobx-react';
+import {
+    observable,
+    computed,
+    action,
+	observe,
+} from 'mobx';
 
 import {
 	Store,
 } from 'mb-react-native-mobx';
 
-const Tab = TabNavigator({
+const Tab = createBottomTabNavigator({
 	Home: {
 		screen: HomePage,
 		navigationOptions: ({navigation}) => ({  
@@ -75,7 +83,7 @@ const Tab = TabNavigator({
 	Cart: {
 		screen: CategoryPage,
 		navigationOptions: ({navigation}) => ({  
-			tabBarLabel: '购物车',  
+			tabBarLabel: '购物车', 
 			tabBarIcon:({selected,tintColor}) => (  
 				<TabBarIcon  
 					tintColor={tintColor}  
@@ -89,7 +97,7 @@ const Tab = TabNavigator({
 	Mine: {
 		screen: CategoryPage,
 		navigationOptions: ({navigation}) => ({  
-			tabBarLabel: '我的',  
+			tabBarLabel: '我的', 
 			tabBarIcon:({selected,tintColor}) => (  
 				<TabBarIcon  
 					tintColor={tintColor}  
@@ -101,7 +109,6 @@ const Tab = TabNavigator({
 		}),
 	}
 }, {
-	tabBarComponent: TabBarBottom,
 	tabBarPosition: 'bottom',
 	swipeEnabled: false,
 	animationEnabled: false,
@@ -118,32 +125,44 @@ const Tab = TabNavigator({
 	}
 });
 
-const Navigator = StackNavigator({
+const RootStack = createStackNavigator({
 	Tab: {
-		screen: Tab
+		screen: Tab,
 	},
+	GoodsDetail: {
+		screen: GoodsDetailPage,
+		navigationOptions: {
+			title: '商品详情',
+		}
+	}
 }, {
+	initialRouteName: 'Tab',
 	navigationOptions: {
 		headerBackTitle: null,
 		headerTintColor: '#333',
 		showIcon: true,
 		swipeEnabled: true,
 		animationEnabled: true,
+		title: '迷你水果商城',
 		headerTitleStyle: {
 			alignSelf: 'center',
             fontSize: 15,
-            color: '#333',
+            color: '#fff',
+		},
+		headerStyle: {
+			backgroundColor: THEME_COLOR,
 		}
 	},
 	mode: 'card',
 });
 
 export default class App extends React.Component {
+
 	render() {
 		return (
-			<Provider rootStore={Store}>
-				 <Navigator />
-			</Provider>
+			<Provider rootStore={Store} >
+				<RootStack />
+			</Provider>			
 		);
 	}
 }

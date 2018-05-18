@@ -19,13 +19,13 @@ const NewGoodsView = (props) => {
     return (
         <View style={styles.container}>
         {
-            items.map((value, index)=> {
+            items.map((item, index)=> {
                 return (
                     <NewGoodsItem 
-                        onPress={()=> props.navigation.navigate('ItemDetail', {value})}
-                        name={value.name} 
-                        price={value.price} 
-                        image={value.image} key={index}/>
+                        onPress={() => props.goodsItemSelected && props.goodsItemSelected(item)}
+                        name={item.name} 
+                        price={item.price} 
+                        image={item.image} key={index}/>
                 )
             }) 
         }

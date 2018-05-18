@@ -5,6 +5,7 @@ import {
     View,
     Image,
     ScrollView,
+    Text,
 } from 'react-native';
 import {
     THEME_COLOR,
@@ -33,9 +34,12 @@ const ImageSources = [
 @inject('rootStore')
 @observer
 export default class HomePage extends React.Component {
-    static navigationOptions = (navigation) => ({
-        headerTitle: '迷你水果商城',
-    })
+    static navigationOptions = (navigation) => {
+        return {
+            title: '首页',
+            headerTitle: '迷你水果商城',
+        }
+    };
 
     constructor(props) {
         super(props);
@@ -54,8 +58,11 @@ export default class HomePage extends React.Component {
         )
     }
 
+    _goodsItemSelected = (item) => {
+        this.props.navigation.navigate('GoodsDetail', item);
+    }
+
     render() {
-        // console.log(this.props.rootStore.NewGoodsStore)
         // 打乱数组
         let data = DisturbArray(this.props.rootStore.newGoodsStore.allDatas.data);
         return (
@@ -70,7 +77,7 @@ export default class HomePage extends React.Component {
                         />
                     </View>
                     <ThemeLine name={'最近新品'}/>
-                    <NewGoodsView itemDatas={data} navigation={this.props.navigation}/>
+                    <NewGoodsView itemDatas={data} goodsItemSelected={this._goodsItemSelected}/>
                 </ScrollView>
             );
     }
@@ -79,7 +86,7 @@ export default class HomePage extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#fff',
       },
     swiper: {
         width: SCREEN_WIDTH,

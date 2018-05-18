@@ -4,7 +4,7 @@ import Dimensions from 'Dimensions';
 /**
  * 主题色
  */
-export const THEME_COLOR = '#0af';
+export const THEME_COLOR = '#AB956D';
 
 /**
  * 屏幕宽度

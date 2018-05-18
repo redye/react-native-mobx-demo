@@ -35,8 +35,7 @@ class OrderStore {
 
 // 分类store
 class CategoryGoodsStore {
-    @observable 
-    allDatas = {}
+    @observable allDatas = {}
 
     constructor(data, rootStore) {
         this.allDatas = data
@@ -46,8 +45,7 @@ class CategoryGoodsStore {
 
 // 首页新品store
 class NewGoodsStore {
-    @observable 
-    allDatas = {}
+    @observable allDatas = {}
 
     constructor(data, rootStore) {
         this.allDatas = data
@@ -57,8 +55,7 @@ class NewGoodsStore {
 
 // 购物车store
 class CartStore {
-    @observable 
-    allDatas = {}
+    @observable allDatas = {}
 
     constructor(data,rootStore) {
         this.allDatas = data
@@ -66,35 +63,30 @@ class CartStore {
     }
 
      //加
-     @action
-     add(money) {
+     @action add(money) {
         // this.allDatas.totalMoney = 0;
         this.allDatas.totalMoney += money
     }
 
     // 减
-    @action
-    reduce(money) {
+    @action reduce(money) {
         this.allDatas.totalMoney -= money
     }
 
     // checkbox true
-    @action
-    checkTrue(money) {
+    @action checkTrue(money) {
         this.allDatas.totalMoney += money
     }  
 
     // checkbox false
-    @action
-    checkFalse(money) {
+    @action checkFalse(money) {
         if(this.allDatas.totalMoney <=0 )
         return 
         this.allDatas.totalMoney -= money
     }
 
     // 全选
-    @action
-    allSelect() {
+    @action allSelect() {
         if(this.allDatas.isAllSelected){
             // 重置totalMoney
             this.allDatas.totalMoney = 0
@@ -107,8 +99,7 @@ class CartStore {
     }
 
     // check全选
-    @action 
-    check() {
+    @action check() {
         // 所有checkbox为true时全选才为true
         let allTrue = this.allDatas.data.every(v => (
             v.isSelected === true
@@ -116,14 +107,13 @@ class CartStore {
         // console.error(this.allDatas.data)
         if(allTrue) {
             this.allDatas.isAllSelected  = true
-        }else {
+        } else {
             this.allDatas.isAllSelected = false
         }
     }
 
     // 删
-    @action
-    delect(name) {
+    @action delect(name) {
         this.allDatas.data = this.allDatas.data.filter (e => (
             e.name !== name
         ))
