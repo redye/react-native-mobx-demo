@@ -94,9 +94,9 @@ export default class GoodsDetailPage extends React.Component {
        // console.log(this.props.rootStore)
         let index;
         if(this.props.rootStore.cartStore)
-         index = this.props.rootStore.cartStore.allDatas.data.findIndex(e => (
-            e.name === name
-         )
+            index = this.props.rootStore.cartStore.allDatas.data.findIndex(e => (
+                e.name === name
+            )
         )
         // 不存在
         if(index == -1) {

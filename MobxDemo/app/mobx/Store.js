@@ -57,7 +57,7 @@ class NewGoodsStore {
 class CartStore {
     @observable allDatas = {}
 
-    constructor(data,rootStore) {
+    constructor(data, rootStore) {
         this.allDatas = data
         this.rootStore = rootStore
     }
