@@ -26,12 +26,12 @@ import {
 class CounterStore {
     @observable counter = 0;
 
-    @action
+    // @action
     add = () => {
         this.counter ++;
     }
     
-    @action
+    // @action
     minus = () => {
         if (this.counter > 0) {
             this.counter --;
@@ -44,10 +44,12 @@ const counterStore = new CounterStore();
 @observer
 export default class Counter extends React.Component {
     _add = () => {
+        // counterStore.counter ++;
         counterStore.add();
     }
 
     _minus = () => {
+        // counterStore.counter --;
         counterStore.minus();
     }
 

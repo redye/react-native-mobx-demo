@@ -11,6 +11,9 @@ import {
 import Dimensions from 'Dimensions';
 const { width, height } = Dimensions.get('window');
 
+import {
+    toJS,
+} from 'mobx';
 import { 
     observer, 
     inject,
@@ -27,7 +30,8 @@ export default class TodoPage extends React.Component {
 
 
     get dataSource() {
-        return this.props.store.allTodos;
+        // return toJS(this.props.store.allTodos);
+        return this.props.store.allTodos.slice();
     }
 
     _addTask = () => {

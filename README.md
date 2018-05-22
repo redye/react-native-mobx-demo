@@ -102,3 +102,6 @@ MobX 是一个经过战火洗礼的库，它通过透明的函数响应式编程
 注意到上面 CounterStore 中的方法前面的 @action，对于任何应用都有动作。动作是任何用来修改状态的东西。 使用 MobX 你可以在代码中显式地标记出动作所在的位置。 动作可以有助于更好的组织代码。对计数器来说，add 和 minus 就是他的动作，因为这个🌰过于简单，这里将 @action 去掉之后，计数器仍然能正常运作。
 
 ![计数器效果图](https://github.com/redye/react-native-mobx-demo/blob/master/counter.gif)
+
+### TodoList 实践 —— 在 FlatList 中的应用
+我们已经学会了 MobX 最基础的用法，
