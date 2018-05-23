@@ -14,9 +14,9 @@ class TodoStore {
             console.log('report ==>', this.report);
         });
 
-        this.add('mobx');
-        this.add('redux');
-        this.add('swift');
+        this.add('一人之下');
+        this.add('灵契');
+        this.add('少年锦衣卫');
     }
 
     @computed get completedTodosCount() {
@@ -36,7 +36,7 @@ class TodoStore {
         return this.todos;
     }
 
-    @computed get report() {
+    get report() {
         if (this.todos.length === 0) {
             return "<none>";
         }
@@ -61,9 +61,12 @@ class TodoStore {
 
     @action 
     edit(item, index) {
-        console.log('edit =>', index);
         item.completed = true;
-        // this.todos.splice(index, 1, item);
+    }
+
+    @action
+    update(item, index) {
+        this.todos.slice(index, 1, item);
     }
 }
 

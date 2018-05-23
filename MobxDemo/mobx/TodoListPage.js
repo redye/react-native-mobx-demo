@@ -24,26 +24,34 @@ import {
 
 import TodoStore from './TodoStore';
 
+
+const todos = ['某科学的超电磁炮', '甲铁城的卡巴内瑞', '花牌情缘', '火影忍者之疾风传', '网球王子', '未闻花名'];
+
+
 @inject('store')
 @observer
-export default class TodoPage extends React.Component {
-
+export default class TodoListPage extends React.Component {
+    _count = 0;
 
     get dataSource() {
-        // return toJS(this.props.store.allTodos);
         return this.props.store.allTodos.slice();
     }
 
     _addTask = () => {
-        this.props.store.add('study mobx');
+        this.props.store.add(todos[this._count % todos.length]);
+        this._count ++;
     }
 
     _deleteTask = () => {
         this.props.store.delete();
     }
 
-    _editTask = (item, index) => {
+    _doneTask = (item, index) => {
         this.props.store.edit(item, index);
+    }
+
+    _editTask = (item, index) => {
+        this.props.navigation.navigate('Edit', {item, index});
     }
 
     _renderItem = ({item, index}) => {
@@ -57,12 +65,17 @@ export default class TodoPage extends React.Component {
                             {
                                 item.completed === true ? null 
                                 :
-                                <TouchableOpacity onPress={() => this._editTask(item, index)}>
+                                <TouchableOpacity onPress={() => this._doneTask(item, index)}>
                                     <View style={{paddingHorizontal: 10, paddingVertical: 5, backgroundColor: 'orange', marginLeft: 8}}>
-                                        <Text style={{color: '#fff'}}>完成</Text>
+                                        <Text style={{color: '#fff'}}>Done</Text>
                                     </View>
                                 </TouchableOpacity>
                             }
+                            <TouchableOpacity onPress={() => this._editTask(item, index)}>
+                                <View style={{paddingHorizontal: 10, paddingVertical: 5, backgroundColor: 'orange', marginLeft: 8}}>
+                                    <Text style={{color: '#fff'}}>Edit</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     );
                 }}
@@ -122,10 +135,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 40,
+        backgroundColor: '#fff',
     },
     buttonContainer: {
-        width: 120,
+        width: 100,
         height: 30,
         backgroundColor: 'orange',
         alignItems: 'center',
@@ -139,10 +152,11 @@ const styles = StyleSheet.create({
     actionContainer: {
         flexDirection: 'row',
         marginHorizontal: 15,
+        marginTop: 15,
     },
     listContainer: {
-        marginTop: 15,
         flex: 1,
+        marginTop: 10,
     },
     itemContainer: {
         flexDirection: 'row',
