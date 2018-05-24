@@ -48,8 +48,13 @@ import {
 } from 'mobx';
 
 import {
+	// CartStore,
+    // NewGoodsStore,
+    // CategoryGoodsStore,
+	// OrderStore,
+	
 	Store,
-} from 'mb-react-native-mobx';
+} from 'mb-react-native-store';
 
 const Tab = createBottomTabNavigator({
 	Home: {
@@ -81,7 +86,7 @@ const Tab = createBottomTabNavigator({
 		  }),
 	},
 	Cart: {
-		screen: CategoryPage,
+		screen: CartPage,
 		navigationOptions: ({navigation}) => ({  
 			tabBarLabel: '购物车', 
 			tabBarIcon:({selected,tintColor}) => (  
@@ -95,7 +100,7 @@ const Tab = createBottomTabNavigator({
 		  }),
 	},
 	Mine: {
-		screen: CategoryPage,
+		screen: MinePage,
 		navigationOptions: ({navigation}) => ({  
 			tabBarLabel: '我的', 
 			tabBarIcon:({selected,tintColor}) => (  
@@ -158,9 +163,21 @@ const RootStack = createStackNavigator({
 
 export default class App extends React.Component {
 
+	/**
+	 * CartStore,
+	 * NewGoodsStore,
+	 * CategoryGoodsStore,
+	 * OrderStore,
+	 */
 	render() {
 		return (
-			<Provider rootStore={Store} >
+			<Provider 
+				rootStore={Store}
+				// newGoodsStore={NewGoodsStore}
+				// cartStore={CartStore}
+				// categoryGoodsStore={CategoryGoodsStore}
+				// orderStore={OrderStore}
+			>
 				<RootStack />
 			</Provider>			
 		);
